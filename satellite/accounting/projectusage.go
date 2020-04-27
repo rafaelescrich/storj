@@ -58,7 +58,7 @@ func (usage *Service) ExceedsBandwidthUsage(ctx context.Context, projectID uuid.
 	})
 	group.Go(func() error {
 		var err error
-		bandwidthGetTotal, err = usage.GetProjectBandwidthTotals(ctx, projectID)
+		bandwidthGetTotal, err = 0, nil //usage.GetProjectBandwidthTotals(ctx, projectID)
 		return err
 	})
 
