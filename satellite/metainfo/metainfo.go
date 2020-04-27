@@ -18,6 +18,7 @@ import (
 	"storj.io/common/context2"
 	"storj.io/common/encryption"
 	"storj.io/common/errs2"
+	"storj.io/common/memory"
 	"storj.io/common/pb"
 	"storj.io/common/rpc/rpcstatus"
 	"storj.io/common/signing"
@@ -366,7 +367,7 @@ func (endpoint *Endpoint) DownloadSegmentOld(ctx context.Context, req *pb.Segmen
 
 	bucketID := createBucketID(keyInfo.ProjectID, req.Bucket)
 
-	exceeded, limit, err := endpoint.projectUsage.ExceedsBandwidthUsage(ctx, keyInfo.ProjectID, bucketID)
+	exceeded, limit, err := false, memory.PB, nil // endpoint.projectUsage.ExceedsBandwidthUsage(ctx, keyInfo.ProjectID, bucketID)
 	if err != nil {
 		endpoint.log.Error("Retrieving project bandwidth total failed.", zap.Error(err))
 	}
@@ -1962,7 +1963,7 @@ func (endpoint *Endpoint) DownloadSegment(ctx context.Context, req *pb.SegmentDo
 
 	bucketID := createBucketID(keyInfo.ProjectID, streamID.Bucket)
 
-	exceeded, limit, err := endpoint.projectUsage.ExceedsBandwidthUsage(ctx, keyInfo.ProjectID, bucketID)
+	exceeded, limit, err := false, memory.PB, nil //endpoint.projectUsage.ExceedsBandwidthUsage(ctx, keyInfo.ProjectID, bucketID)
 	if err != nil {
 		endpoint.log.Error("Retrieving project bandwidth total failed.", zap.Error(err))
 	}
